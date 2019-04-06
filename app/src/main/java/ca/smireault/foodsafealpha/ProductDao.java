@@ -19,4 +19,7 @@ public interface ProductDao {
     @Query("SELECT * FROM product")
     LiveData<List<Product>> getAllProducts();
 
+    @Query("SELECT * FROM product WHERE type_id = :type_id ORDER BY name ASC")
+    LiveData<List<Product>> getAllProductsByType(long type_id);
+
 }

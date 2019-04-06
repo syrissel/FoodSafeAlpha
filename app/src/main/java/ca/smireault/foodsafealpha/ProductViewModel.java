@@ -11,6 +11,7 @@ public class ProductViewModel extends AndroidViewModel {
     private ProductRepository repository;
     private LiveData<List<Product>> allProducts;
     private LiveData<List<Type>> allTypes;
+    private LiveData<List<Product>> allProductsByType;
 
     public ProductViewModel (Application application) {
         super(application);
@@ -21,6 +22,10 @@ public class ProductViewModel extends AndroidViewModel {
 
     LiveData<List<Product>> getAllProducts() { return allProducts; }
     LiveData<List<Type>> getAllTypes() { return allTypes; }
+    LiveData<List<Product>> getAllProductsByType(long type_id) {
+        allProductsByType = repository.getAllProductsByType(type_id);
+        return allProductsByType;
+    }
 
     public void insert(Product product) {
         repository.insert(product);

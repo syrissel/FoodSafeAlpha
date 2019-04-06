@@ -10,26 +10,26 @@ import android.widget.EditText;
 
 public class NewProductActivity extends AppCompatActivity {
 
-    private EditText mEditWordView;
+    private EditText etNewProduct;
 
-    public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
+    //public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_word);
+        setContentView(R.layout.activity_new_product);
 
-        mEditWordView = findViewById(R.id.edit_word);
+        etNewProduct = findViewById(R.id.etNewProduct);
 
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent replyIntent = new Intent();
-                if (TextUtils.isEmpty(mEditWordView.getText())) {
+                if (TextUtils.isEmpty(etNewProduct.getText())) {
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
-                    String word = mEditWordView.getText().toString();
-                    replyIntent.putExtra(EXTRA_REPLY, word);
+                    String product_name = etNewProduct.getText().toString();
+                    replyIntent.putExtra("product_name", product_name);
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

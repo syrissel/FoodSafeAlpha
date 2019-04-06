@@ -1,7 +1,6 @@
 package ca.smireault.foodsafealpha;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview2);
-        final ProductListAdapter adapter = new ProductListAdapter(this);
+        final TypeListAdapter adapter = new TypeListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -77,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_PRODUCT_REQUEST_CODE && resultCode == RESULT_OK) {
-            Product product = new Product(data.getStringExtra(NewProductActivity.EXTRA_REPLY), 1);
-            productViewModel.insert(product);
+            //Product product = new Product(data.getStringExtra(NewProductActivity.EXTRA_REPLY), 1);
+            //productViewModel.insert(product);
         } else {
             Toast.makeText(this, "Product not saved.", Toast.LENGTH_SHORT).show();
         }

@@ -12,6 +12,7 @@ public class ProductRepository {
     private TypeDao typeDao;
     private LiveData<List<Type>> allTypes;
     private LiveData<List<Product>> allProducts;
+    private LiveData<List<Product>> allProductsByType;
 
     ProductRepository(Application application) {
         ProductRoomDatabase db = ProductRoomDatabase.getInstance(application);
@@ -25,6 +26,11 @@ public class ProductRepository {
         return allProducts;
     }
     LiveData<List<Type>> getAllTypes() { return allTypes; }
+
+    LiveData<List<Product>> getAllProductsByType(long type_id) {
+        allProductsByType = productDao.getAllProductsByType(type_id);
+        return allProductsByType;
+    }
 
     public void insert(Product product) {
         new insertAsyncTask(productDao).execute(product);

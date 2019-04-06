@@ -9,7 +9,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = {Product.class, Type.class}, version = 3, exportSchema = true)
+@Database(entities = {Product.class, Type.class}, version = 1, exportSchema = true)
 public abstract class ProductRoomDatabase extends RoomDatabase {
 
     public abstract ProductDao productDao();
@@ -17,31 +17,12 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
 
     private static volatile ProductRoomDatabase INSTANCE;
 
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE `Type` (`id` INTEGER NOT NULL, `name` TEXT, PRIMARY KEY(`id`))");
-        }
-    };
-
-    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("DROP TABLE product;");
-            database.execSQL("CREATE TABLE Product (id INTEGER NOT NULL, name TEXT, type_id INTEGER NOT NULL," +
-                    "PRIMARY KEY (id), " +
-                    "CONSTRAINT fk_type_id FOREIGN KEY (type_id) REFERENCES Type(id));");
-
-        }
-    };
-
     static ProductRoomDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (ProductRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ProductRoomDatabase.class, "product_database")
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .addCallback(populateDbCallback)
                             .build();
                 }
@@ -69,18 +50,36 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            if(android.os.Debug.isDebuggerConnected())
+                android.os.Debug.waitForDebugger();
+
             productDao.deleteAll();
             typeDao.deleteAll();
-//            Product product = new Product("Beef");
-//            productDao.insert(product);
-//            product = new Product("Chips");
-//            productDao.insert(product);
+
             Type type = new Type("Meats");
             typeDao.insert(type);
+
+            Product product = new Product("Beef", type.getId());
+            productDao.insert(product);
+            product = new Product("Roast Chicken", type.getId());
+            productDao.insert(product);
+
             type = new Type("Veggies");
             typeDao.insert(type);
+
+            product = new Product("Cauliflower", type.getId());
+            productDao.insert(product);
+            product = new Product("Asparagus", type.getId());
+            productDao.insert(product);
+
             type = new Type("Snacks");
             typeDao.insert(type);
+
+            product = new Product("Doritos", type.getId());
+            productDao.insert(product);
+            product = new Product("Chocolate Almonds", type.getId());
+            productDao.insert(product);
+
             return null;
         }
     }
