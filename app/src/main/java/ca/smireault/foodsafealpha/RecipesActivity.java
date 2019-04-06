@@ -66,11 +66,11 @@ public class RecipesActivity extends AppCompatActivity {
                                 JSONObject recipe = jsonArray.getJSONObject(i);
 
                                 String recipeName = recipe.getString("title");
-                                //String url = recipe.getString("href");
+                                String url = recipe.getString("href");
                                 String imageUrl = recipe.getString("thumbnail");
                                 String ingredients = recipe.getString("ingredients");
 
-                                mRecipeList.add(new RecipeItem(imageUrl, recipeName, ingredients));
+                                mRecipeList.add(new RecipeItem(imageUrl, recipeName, ingredients, url));
 
                             }
 

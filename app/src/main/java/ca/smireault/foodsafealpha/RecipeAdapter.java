@@ -1,7 +1,10 @@
 package ca.smireault.foodsafealpha;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +36,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder recipeViewHolder, int i) {
-        RecipeItem currentItem = mRecipeList.get(i);
+        final RecipeItem currentItem = mRecipeList.get(i);
 
         String imageUrl = currentItem.getmImageUrl();
         String recipeName = currentItem.getmRecipeName();
         String ingredients = currentItem.getmIngredients();
+
 
 
         recipeViewHolder.mIngredients.setText(ingredients);
@@ -48,6 +52,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         } catch(IllegalArgumentException e) {
             Picasso.get().load("http://clipart-library.com/images/pc7KKAXKi.jpg").fit().centerInside().into(recipeViewHolder.mImageView);
         }
+
+        recipeViewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentItem.getmUrl()));
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
@@ -60,6 +72,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public ImageView mImageView;
         public TextView mRecipeName;
         public TextView mIngredients;
+        public CardView mParentLayout;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +80,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             mImageView = itemView.findViewById(R.id.image_view);
             mRecipeName = itemView.findViewById(R.id.tvRecipeName);
             mIngredients = itemView.findViewById(R.id.tvIngredients);
+            mParentLayout = itemView.findViewById(R.id.card_view);
         }
     }
 }

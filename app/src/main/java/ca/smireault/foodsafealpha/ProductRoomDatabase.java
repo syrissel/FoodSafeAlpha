@@ -61,7 +61,7 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
 
             Product product = new Product("Beef", type.getId());
             productDao.insert(product);
-            product = new Product("Roast Chicken", type.getId());
+            product = new Product("Chicken", type.getId());
             productDao.insert(product);
 
             type = new Type("Veggies");
@@ -77,7 +77,7 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
 
             product = new Product("Doritos", type.getId());
             productDao.insert(product);
-            product = new Product("Chocolate Almonds", type.getId());
+            product = new Product("Almonds", type.getId());
             productDao.insert(product);
 
             return null;
