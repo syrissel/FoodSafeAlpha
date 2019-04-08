@@ -16,6 +16,9 @@ public interface TypeDao {
     @Query("SELECT * FROM type ORDER BY name ASC")
     LiveData<List<Type>> getAllTypes();
 
+    @Query("SELECT * FROM type ORDER BY name DESC")
+    LiveData<List<Type>> getAllTypesDesc();
+
     @Query("DELETE FROM type")
     void deleteAll();
 }

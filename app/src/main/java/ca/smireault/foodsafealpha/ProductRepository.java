@@ -11,7 +11,9 @@ public class ProductRepository {
     private ProductDao productDao;
     private TypeDao typeDao;
     private LiveData<List<Type>> allTypes;
+    private LiveData<List<Type>> allTypesDesc;
     private LiveData<List<Product>> allProducts;
+    private LiveData<List<Product>> allProductsDesc;
     private LiveData<List<Product>> allProductsByType;
 
     ProductRepository(Application application) {
@@ -19,13 +21,17 @@ public class ProductRepository {
         productDao = db.productDao();
         typeDao = db.typeDao();
         allProducts = productDao.getAllProducts();
+        allProductsDesc = productDao.getAllProductsDesc();
         allTypes = typeDao.getAllTypes();
+        allTypesDesc = typeDao.getAllTypesDesc();
     }
 
     LiveData<List<Product>> getAllProducts() {
         return allProducts;
     }
+    LiveData<List<Product>> getAllProductsDesc() { return allProductsDesc; }
     LiveData<List<Type>> getAllTypes() { return allTypes; }
+    LiveData<List<Type>> getAllTypesDesc() { return allTypesDesc; }
 
     LiveData<List<Product>> getAllProductsByType(long type_id) {
         allProductsByType = productDao.getAllProductsByType(type_id);

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entries_array">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
+    <string-array name="entry_values_array">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+</resources>

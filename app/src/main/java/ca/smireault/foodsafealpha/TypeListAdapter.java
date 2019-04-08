@@ -36,16 +36,6 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.TypeVi
     @Override
     public void onBindViewHolder(@NonNull TypeViewHolder typeViewHolder, int i) {
         if (types != null) {
-//            Product current = products.get(i);
-//            typeViewHolder.typeItemView.setText(current.getName());
-//
-//            typeViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(mContext, NewProductActivity.class);
-//                    ((Activity) mContext).startActivityForResult(intent, NEW_PRODUCT_REQUEST_CODE);
-//                }
-//            });
 
             final Type current = types.get(i);
             typeViewHolder.typeItemView.setText(current.getName());
